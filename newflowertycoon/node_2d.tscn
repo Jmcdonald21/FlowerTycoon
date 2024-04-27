@@ -1,0 +1,153 @@
+[gd_scene load_steps=15 format=3 uid="uid://j13m83ty2wb5"]
+
+[ext_resource type="Texture2D" uid="uid://bxjcrtufjc6ev" path="res://wooden-parquet-seamless-pattern-dark-laminate-floor-top-view-realistic-vector-illustration_206049-2484.png" id="1_0ys3v"]
+[ext_resource type="Script" path="res://CharacterHull.gd" id="2_j8bfh"]
+[ext_resource type="Texture2D" uid="uid://bjdlh0ceb0ci6" path="res://M_01.png" id="2_u1wjs"]
+[ext_resource type="Script" path="res://Character.gd" id="3_446ml"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_l441i"]
+normal = Vector2(-1.19374e-06, 1)
+distance = -36.9538
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_08fs4"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c60uv"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4m8al"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="Animation" id="Animation_4x752"]
+resource_name = "WalkDown"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 4, 8, 0]
+}
+
+[sub_resource type="Animation" id="Animation_05b4a"]
+resource_name = "WalkLeft"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 7, 11, 3]
+}
+
+[sub_resource type="Animation" id="Animation_btpji"]
+resource_name = "WalkRight"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 5, 9, 1]
+}
+
+[sub_resource type="Animation" id="Animation_p8fnl"]
+resource_name = "WalkUp"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 6, 10, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjmgi"]
+_data = {
+"WalkDown": SubResource("Animation_4x752"),
+"WalkLeft": SubResource("Animation_05b4a"),
+"WalkRight": SubResource("Animation_btpji"),
+"WalkUp": SubResource("Animation_p8fnl")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6n0e3"]
+size = Vector2(56.3438, 75.4219)
+
+[node name="Shop" type="Node2D"]
+
+[node name="ShopBackground" type="Sprite2D" parent="."]
+position = Vector2(799, 451.5)
+scale = Vector2(2.16486, 1.87759)
+texture = ExtResource("1_0ys3v")
+
+[node name="UpperBoundary" type="StaticBody2D" parent="ShopBackground"]
+position = Vector2(-269.301, -202.12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShopBackground/UpperBoundary"]
+shape = SubResource("WorldBoundaryShape2D_l441i")
+
+[node name="LowerBoundary" type="StaticBody2D" parent="ShopBackground"]
+position = Vector2(7.85268, 181.349)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShopBackground/LowerBoundary"]
+position = Vector2(-18.4769, 59.6508)
+shape = SubResource("WorldBoundaryShape2D_08fs4")
+
+[node name="LeftBoundary" type="StaticBody2D" parent="ShopBackground"]
+position = Vector2(-254.519, 2.39668)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShopBackground/LeftBoundary"]
+position = Vector2(-114.557, 0)
+shape = SubResource("WorldBoundaryShape2D_c60uv")
+
+[node name="RightBoundary" type="StaticBody2D" parent="ShopBackground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShopBackground/RightBoundary"]
+position = Vector2(370, 15.179)
+shape = SubResource("WorldBoundaryShape2D_4m8al")
+
+[node name="CharacterHull" type="CharacterBody2D" parent="."]
+position = Vector2(424, 184)
+script = ExtResource("2_j8bfh")
+
+[node name="Character" type="Sprite2D" parent="CharacterHull"]
+texture_filter = 1
+position = Vector2(168.5, 102.969)
+scale = Vector2(4.9375, 4.82719)
+texture = ExtResource("2_u1wjs")
+hframes = 4
+vframes = 3
+frame = 11
+script = ExtResource("3_446ml")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterHull/Character"]
+libraries = {
+"": SubResource("AnimationLibrary_pjmgi")
+}
+
+[node name="CharacterShape" type="CollisionShape2D" parent="CharacterHull"]
+position = Vector2(168, 106.289)
+shape = SubResource("RectangleShape2D_6n0e3")
